@@ -13,18 +13,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.temple.counterapp.ui.theme.CounterAppTheme
 
 class MainActivity : ComponentActivity() {
 
-    val counterViewModel by viewModels<CounterViewModel>()
+    //val counterViewModel by viewModels<CounterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +30,7 @@ class MainActivity : ComponentActivity() {
             CounterAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Counter(
-                        counterViewModel,
+                        //counterViewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -43,9 +40,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Counter(counterViewModel: CounterViewModel, modifier: Modifier = Modifier) {
+fun Counter(//counterViewModel: CounterViewModel,
+            modifier: Modifier = Modifier) {
 
     //var countValue by rememberSaveable() { mutableIntStateOf(0) }
+
+    val counterViewModel : CounterViewModel = viewModel()
 
     Column(modifier =
         Modifier.fillMaxSize(),
@@ -55,7 +55,7 @@ fun Counter(counterViewModel: CounterViewModel, modifier: Modifier = Modifier) {
         Button({ counterViewModel.countValue.intValue++ }) { Text("Up") }
 
         Text(
-            text = counterViewModel.countValue.toString(),
+            text = counterViewModel.countValue.intValue.toString(),
             modifier = modifier,
             fontSize = 48.sp
         )
